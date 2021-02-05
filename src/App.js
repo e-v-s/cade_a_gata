@@ -1,16 +1,29 @@
 import Header from './components/header';
 import Body from './components/body';
-// import React, { useState } from 'react';
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  // useParams
+} from "react-router-dom";
 
 function App() {
-  // const [menuType, setMenuType] = useState('');
-
-  // console.log(menuType)
-
   return (
     <div className="App">
       <Header />
-      <Body />
+      {
+        window.location.href === 'https://cade-a-gata.vercel.app/' ? <Body /> : 
+        <Router>
+          <Link to='/login' />
+          <Switch>
+            <Route path='/login'>
+              <p>aqui</p>
+            </Route>
+          </Switch>
+        </Router>
+      }      
     </div>
   );
 }
