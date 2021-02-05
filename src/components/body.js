@@ -1,17 +1,37 @@
 import { StyleSheet, css } from 'aphrodite';
 import React, { useState } from 'react';
+import "react-image-gallery/styles/css/image-gallery.css";
+import ImageGallery from 'react-image-gallery';
+
+import coleira01 from '../images/coleira_ref_01.png';
+import coleira02 from '../images/coleira_ref_02.png';
+import coleira03 from '../images/coleira_ref_03.webp';
 
 function Body(props) {
 	const [menuType, setMenuType] = useState('');
-
-	console.log(menuType)
+	const coleiras = [
+		{
+			original: coleira01,
+			thumbnail: coleira01,
+			description: 'Referência 01 - Valor: R$ 8,oo'
+		},
+		{
+			original: coleira02,
+			thumbnail: coleira02
+		},
+		{
+			original: coleira03,
+			thumbnail: coleira03
+		}
+	]
 
   return(
 		<div className={css(style.sections)}>
 			<p className={css(style.text)}>Olá, somos uma lojinha pensada para trazer pra perto de você produtinhos para seu pet, aqui você pode encontrar tudo o que temos no momento<br></br>=^.^=</p>
 			<div className={css(style.section)} onClick={() => {menuType !== 'coleiras' ? setMenuType('coleiras') : setMenuType('')}}>Coleiras</div>
 			{
-				menuType === 'coleiras' ? <p>coleiras</p> : null
+				menuType === 'coleiras' ? 
+				<ImageGallery items={coleiras} showPlayButton={false} /> : null
 			}
 			<div className={css(style.section)} onClick={() => {menuType !== 'caminhas' ? setMenuType('caminhas') : setMenuType('')}}>Caminhas</div>
 			{
@@ -51,6 +71,12 @@ const style = StyleSheet.create({
 		textAlign: 'center',
 		marginBottom: '60px',
 		color: '#6A6260'
+	},
+	slide: {
+		marginBottom: '80px',
+		'@media only screen and (min-width: 820px)':{
+			width: '50%',
+		}
 	}
 })
 
