@@ -24,7 +24,8 @@ const style = StyleSheet.create({
 	logoTitle: {
 		fontFamily: `'Amatic SC', cursive`,
 		marginTop: '0',
-		marginBottom: '50px'
+		marginBottom: '50px',
+		fontSize: '40px'
 	}
 })
 
