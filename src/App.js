@@ -22,7 +22,8 @@ function App() {
   useEffect(() => {
     dbColeiras.then(res => res.items.forEach( folderRef => {
 			firebase.storage().ref(folderRef.fullPath).getDownloadURL().then(res => {lista.push(res)}).then(() => {return setColeiras([...lista])})
-		}))
+    }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
