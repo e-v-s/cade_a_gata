@@ -59,11 +59,10 @@ function Login(props) {
 			task.on('state_changed', (snapshot) => {
 				let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
 				setUploadValue(percentage)
+				window.location.reload();
 			}, (error) => {
 				console.error(error.message)
 			});
-
-			window.location.reload();
 		}
 
 		const handleDelete = (e) => {
