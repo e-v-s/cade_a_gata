@@ -22,6 +22,7 @@ function Login(props) {
 			setTimeout(() => {
 				setUploadValue(0);
 				setFile('');
+				window.location.reload();
 			}, 2000); 
 		};
 	});
@@ -59,7 +60,6 @@ function Login(props) {
 			task.on('state_changed', (snapshot) => {
 				let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
 				setUploadValue(percentage)
-				window.location.reload();
 			}, (error) => {
 				console.error(error.message)
 			});
