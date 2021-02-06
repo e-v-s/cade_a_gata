@@ -154,7 +154,7 @@ function Login(props) {
 						onChange={e => setPassword(e.target.value)} 
 						placeholder='senha' 
 					/>
-					<button className={css(style.btn)} onClick={(e) => handleSubmit(e)}>Login</button>
+					<button className={css(style.btn)} style={{backgroundColor: '#EDCFC4'}} onClick={(e) => handleSubmit(e)}>Login</button>
 			</form> : <Dashboard />
 			}
 		</div>
