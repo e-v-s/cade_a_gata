@@ -54,15 +54,20 @@ function Login(props) {
 		const handleUpload = (e) => {
 			e.preventDefault();
 
-			const storageRef = firebase.storage().ref(`${e.target.id}/${file.name}`);
-			let task = storageRef.put(file);		
-						
-			task.on('state_changed', (snapshot) => {
-				let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-				setUploadValue(percentage)
-			}, (error) => {
-				console.error(error.message)
-			});
+			if(e.target.value !== '') {
+				const storageRef = firebase.storage().ref(`${e.target.id}/${file.name}`);
+				let task = storageRef.put(file);		
+							
+				task.on('state_changed', (snapshot) => {
+					let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+					setUploadValue(percentage)
+				}, (error) => {
+					console.error(error.message)
+				});
+			} else {
+				alert('Por favor, kirida, escolha a fota!')
+			}
+
 		}
 
 		const handleDelete = (e) => {
