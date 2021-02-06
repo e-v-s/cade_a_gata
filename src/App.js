@@ -14,6 +14,7 @@ function App() {
   return (
     <div className="App">
       <Header />
+      <Body />
       {
         window.location.href === 'https://cade-a-gata.vercel.app/' ? <Body /> : 
         <Router>
