@@ -154,7 +154,7 @@ function Login(props) {
 						onChange={e => setPassword(e.target.value)} 
 						placeholder='senha' 
 					/>
-					<button className={css(style.btn)} style={{backgroundColor: '#EDCFC4'}} onClick={(e) => handleSubmit(e)}>Login</button>
+					<button className={css(style.loginBtn)} style={{backgroundColor: '#EDCFC4'}} onClick={(e) => handleSubmit(e)}>Login</button>
 			</form> : <Dashboard />
 			}
 		</div>
@@ -183,6 +183,18 @@ const style = StyleSheet.create({
 		fontSize: '20px',
 		outline: 'none',
 		backgroundColor: '#839690',
+		border: 'none',
+		fontFamily: `'Source Sans Pro', sans-serif`,
+		fontWeight: '300'
+	},
+	loginBtn: {
+		width: '120px',
+		padding: '20px',
+		marginTop: '20px',
+		borderRadius: '10px',
+		fontSize: '20px',
+		outline: 'none',
+		backgroundColor: '#EDCFC4',
 		border: 'none',
 		fontFamily: `'Source Sans Pro', sans-serif`,
 		fontWeight: '300'
