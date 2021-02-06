@@ -83,36 +83,44 @@ function Login(props) {
 		return(
 			<div className={css(style.dashboard)}>
 				<button className={css(style.btn)} onClick={() => handleSignOut()}>Logout</button>
-					<form className={css(style.dashboardUpload)}>
-						<h2 className={css(style.title)}>Nessa sessão você faz upload <span style={{fontSize: '30px'}}>SÓ DE COLEIRAS</span></h2>
-						<input id="coleirasUp" type="file" onChange={(e) => handleChangeUpload(e)} accept="image/png, image/jpeg" />
-						{
-							uploadValue !== 0 && product === 'coleirasUp' ? <progress max='100' value={uploadValue}>{uploadValue} %</progress> : null
-						}						
-						{
-							file !== '' && product === 'coleirasUp' ? <div><button id="coleiras" onClick={(e) => handleUpload(e)}>Upload</button><button onClick={() => {setFile(''); setProduct('')}}>Cancelar upload</button></div> : <button id="coleiras" onClick={(e) => handleUpload(e)}>Upload</button>
-						}						
-					</form>
-					<form className={css(style.dashboardUpload)}>
-						<h2 className={css(style.title)}>Nessa aqui <span style={{fontSize: '30px'}}>SÓ DE</span> caminhas</h2>
-						<input id="caminhasUp" type="file" onChange={handleChangeUpload}></input>
-						{
-							uploadValue !== 0 && product === 'caminhasUp' ? <progress max='100' value={uploadValue}>{uploadValue} %</progress> : null
-						}						
-						{
-							file !== '' && product === 'caminhasUp' ? <div><button id="caminhas" onClick={(e) => handleUpload(e)}>Upload</button><button onClick={() => {setFile(''); setProduct('')}}>Cancelar upload</button></div> : <button id="caminhas" onClick={(e) => handleUpload(e)}>Upload</button>
-						}
-					</form>
-					<form className={css(style.dashboardUpload)}>
-						<h2 className={css(style.title)}>E nessa só de arranhadores</h2>
-						<input id="arranhadoresUp" type="file" onChange={handleChangeUpload}></input>
-						{
-							uploadValue !== 0 && product === 'arranhadoresUp' ? <progress max='100' value={uploadValue}>{uploadValue} %</progress> : null
-						}						
-						{
-							file !== '' && product === 'arranhadoresUp' ? <div><button id="arranhadores" onClick={(e) => handleUpload(e)}>Upload</button><button onClick={() => {setFile(''); setProduct('')}}>Cancelar upload</button></div> : <button id="arranhadores" onClick={(e) => handleUpload(e)}>Upload</button>
-						}
-					</form>
+				<h2 className={css(style.title)} style={{fontSize: '30px', marginTop: '60px'}}>Aqui você faz upload dos produtos:</h2>
+				<h2 className={css(style.productBtn)} onClick={() => {productType !== 'uploads' ? setProductType('uploads') : setProductType('')}}>UPLOADS</h2>
+				{
+					productType === 'uploads' ? 
+					<div>
+						<form className={css(style.dashboardUpload)}>
+							<h2 className={css(style.title)}>Nessa sessão você faz upload <span style={{fontSize: '30px'}}>SÓ DE COLEIRAS</span></h2>
+							<input id="coleirasUp" type="file" onChange={(e) => handleChangeUpload(e)} accept="image/png, image/jpeg" />
+							{
+								uploadValue !== 0 && product === 'coleirasUp' ? <progress max='100' value={uploadValue}>{uploadValue} %</progress> : null
+							}						
+							{
+								file !== '' && product === 'coleirasUp' ? <div><button id="coleiras" onClick={(e) => handleUpload(e)}>Upload</button><button onClick={() => {setFile(''); setProduct('')}}>Cancelar upload</button></div> : <button id="coleiras" onClick={(e) => handleUpload(e)}>Upload</button>
+							}						
+						</form>
+						<form className={css(style.dashboardUpload)}>
+							<h2 className={css(style.title)}>Nessa aqui <span style={{fontSize: '30px'}}>SÓ DE</span> caminhas</h2>
+							<input id="caminhasUp" type="file" onChange={handleChangeUpload}></input>
+							{
+								uploadValue !== 0 && product === 'caminhasUp' ? <progress max='100' value={uploadValue}>{uploadValue} %</progress> : null
+							}						
+							{
+								file !== '' && product === 'caminhasUp' ? <div><button id="caminhas" onClick={(e) => handleUpload(e)}>Upload</button><button onClick={() => {setFile(''); setProduct('')}}>Cancelar upload</button></div> : <button id="caminhas" onClick={(e) => handleUpload(e)}>Upload</button>
+							}
+						</form>
+						<form className={css(style.dashboardUpload)}>
+							<h2 className={css(style.title)}>E nessa só de arranhadores</h2>
+							<input id="arranhadoresUp" type="file" onChange={handleChangeUpload}></input>
+							{
+								uploadValue !== 0 && product === 'arranhadoresUp' ? <progress max='100' value={uploadValue}>{uploadValue} %</progress> : null
+							}						
+							{
+								file !== '' && product === 'arranhadoresUp' ? <div><button id="arranhadores" onClick={(e) => handleUpload(e)}>Upload</button><button onClick={() => {setFile(''); setProduct('')}}>Cancelar upload</button></div> : <button id="arranhadores" onClick={(e) => handleUpload(e)}>Upload</button>
+							}
+						</form>
+					</div>
+					: null
+				}					
 					<div className={css(style.dashboardDelete)}>
 						<h2 className={css(style.title)} style={{fontSize: '30px'}}>Aqui você olha o que tem em cada sessão:</h2>
 						<div className={css(style.deleteSection)}>
@@ -226,7 +234,7 @@ const style = StyleSheet.create({
 		alignItems: 'flex-start'
 	},
 	dashboardDelete: {
-		margin: '60px 0'
+		margin: '30px 0'
 	},
 	image: {
 		width: '200px',
