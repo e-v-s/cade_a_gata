@@ -12,7 +12,7 @@ function Login(props) {
 	const [product, setProduct] = useState('');
 	const [uploadValue, setUploadValue] = useState(0);
 	const [productType, setProductType] = useState('');
-	
+
 	useEffect(() => {		
 		firebase.auth().onAuthStateChanged(user => {
 			setCurrentUser(user);
@@ -23,6 +23,7 @@ function Login(props) {
 				setUploadValue(0);
 				setFile('');
 			}, 2000); 
+			// eslint-disable-next-line react-hooks/exhaustive-deps
 		};
 	});
 
@@ -102,7 +103,7 @@ function Login(props) {
 						<div>
 							<h2 onClick={() => {productType !== 'coleiras' ? setProductType('coleiras') : setProductType('')}}>Coleiras</h2>
 							{
-								productType === 'coleiras' ? props.coleiras.map(i => <img src={i} />) : null
+								productType === 'coleiras' ? props.coleiras.map(i => <img src={i} alt='coleira' />) : null
 							}
 						</div>
 						<div>
