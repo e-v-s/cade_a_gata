@@ -62,11 +62,13 @@ function Login(props) {
 			}, (error) => {
 				console.error(error.message)
 			});
+
+			window.location.reload();
 		}
 
 		const handleDelete = (e) => {
 			e.preventDefault();
-			
+
 			let name = e.target.id.substr(e.target.id.indexOf('%2F') + 3, (e.target.id.indexOf('?')) - (e.target.id.indexOf('%2F') + 3));
 			name = name.replace('%20',' '); 
 			let storagePath = firebase.storage().ref(e.target.value);
@@ -74,10 +76,10 @@ function Login(props) {
 		}
 
 		return(
-			<div>
+			<div className={css(style.dashboard)}>
 				<button className={css(style.btn)} onClick={() => handleSignOut()}>Logout</button>
-					<form>
-						<h2>Nessa sessão você faz upload SÓ DE COLEIRAS</h2>
+					<form className={css(style.dashboardUpload)}>
+						<h2 className={css(style.title)}>Nessa sessão você faz upload <span style={{fontSize: '30px'}}>SÓ DE COLEIRAS</span></h2>
 						<input id="coleirasUp" type="file" onChange={(e) => handleChangeUpload(e)} accept="image/png, image/jpeg" />
 						{
 							uploadValue !== 0 && product === 'coleirasUp' ? <progress max='100' value={uploadValue}>{uploadValue} %</progress> : null
@@ -86,8 +88,8 @@ function Login(props) {
 							file !== '' && product === 'coleirasUp' ? <div><button id="coleiras" onClick={(e) => handleUpload(e)}>Upload</button><button onClick={() => {setFile(''); setProduct('')}}>Cancelar upload</button></div> : <button id="coleiras" onClick={(e) => handleUpload(e)}>Upload</button>
 						}						
 					</form>
-					<form>
-						<h2>Nessa aqui SÓ DE caminhas</h2>
+					<form className={css(style.dashboardUpload)}>
+						<h2 className={css(style.title)}>Nessa aqui <span style={{fontSize: '30px'}}>SÓ DE</span> caminhas</h2>
 						<input id="caminhasUp" type="file" onChange={handleChangeUpload}></input>
 						{
 							uploadValue !== 0 && product === 'caminhasUp' ? <progress max='100' value={uploadValue}>{uploadValue} %</progress> : null
@@ -96,8 +98,8 @@ function Login(props) {
 							file !== '' && product === 'caminhasUp' ? <div><button id="caminhas" onClick={(e) => handleUpload(e)}>Upload</button><button onClick={() => {setFile(''); setProduct('')}}>Cancelar upload</button></div> : <button id="caminhas" onClick={(e) => handleUpload(e)}>Upload</button>
 						}
 					</form>
-					<form>
-						<h2>E nessa só de arranhadores</h2>
+					<form className={css(style.dashboardUpload)}>
+						<h2 className={css(style.title)}>E nessa só de arranhadores</h2>
 						<input id="arranhadoresUp" type="file" onChange={handleChangeUpload}></input>
 						{
 							uploadValue !== 0 && product === 'arranhadoresUp' ? <progress max='100' value={uploadValue}>{uploadValue} %</progress> : null
@@ -106,27 +108,28 @@ function Login(props) {
 							file !== '' && product === 'arranhadoresUp' ? <div><button id="arranhadores" onClick={(e) => handleUpload(e)}>Upload</button><button onClick={() => {setFile(''); setProduct('')}}>Cancelar upload</button></div> : <button id="arranhadores" onClick={(e) => handleUpload(e)}>Upload</button>
 						}
 					</form>
-					<div>
-						Aqui você olha o que tem em cada sessão:
-						<div>
-							<h2 onClick={() => {productType !== 'coleiras' ? setProductType('coleiras') : setProductType('')}}>Coleiras</h2>
+					<div className={css(style.dashboardDelete)}>
+						<h2 className={css(style.title)} style={{fontSize: '30px'}}>Aqui você olha o que tem em cada sessão:</h2>
+						<div className={css(style.deleteSection)}>
+							<h2 className={css(style.productBtn)} onClick={() => {productType !== 'coleiras' ? setProductType('coleiras') : setProductType('')}}>Coleiras</h2>
 							{
 								productType === 'coleiras' ? props.coleiras.map(i => {
-									return(<div>
-										<img src={i} alt='' />
-										<button id={i} value='coleiras' onClick={(e) => handleDelete(e)}>Apagar produtinho</button>
+									return(
+									<div className={css(style.deleteImage)}>
+										<img className={css(style.image)} src={i} alt='' />
+										<button className={css(style.deleteBtn)} id={i} value='coleiras' onClick={(e) => handleDelete(e)}>Apagar produtinho</button>
 									</div>
 									)}) : null
 							}
 						</div>
-						<div>
-							<h2 onClick={() => {productType !== 'caminhas' ? setProductType('caminhas') : setProductType('')}}>Caminhas</h2>
+						<div className={css(style.deleteSection)}>
+							<h2 className={css(style.productBtn)} onClick={() => {productType !== 'caminhas' ? setProductType('caminhas') : setProductType('')}}>Caminhas</h2>
 							{
 								productType === 'caminhas' ? <p>caminhas</p> : null
 							}
 						</div>
-						<div>
-							<h2>Arranhadores</h2>
+						<div className={css(style.deleteSection)}>
+							<h2 className={css(style.productBtn)}>Arranhadores</h2>
 						</div>
 					</div>
 			</div>
@@ -180,10 +183,67 @@ const style = StyleSheet.create({
 		borderRadius: '10px',
 		fontSize: '20px',
 		outline: 'none',
-		backgroundColor: '#E1B0A2',
+		backgroundColor: '#839690',
 		border: 'none',
 		fontFamily: `'Source Sans Pro', sans-serif`,
 		fontWeight: '300'
+	},
+	title: {
+		color: '#6A6260',
+		fontFamily: `'Amatic SC', cursive`,
+	},
+	dashboard: {
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		backgroundColor: '#DADEE1'
+	},
+	dashboardUpload: {
+		border: '1px solid #839690',
+		marginTop: '60px',
+		padding: '20px',
+		textAlign: 'center',
+		borderRadius: '10px'
+	},
+	dashboardDelete: {
+		margin: '60px 0'
+	},
+	image: {
+		width: '200px',
+		marginBottom: '10px'
+	},
+	deleteSection: {
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center'
+	},
+	deleteImage: {
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		margin: '30px 0',
+		border: '1px solid #E1B0A2',
+		padding: '20px',
+		borderRadius: '10px',
+		backgroundColor: '#EDCFC4'
+	},
+	productBtn: {
+		fontFamily: `'Source Sans Pro', sans-serif`,
+		textTransform: 'uppercase',
+		border: '1px solid #E1B0A2',
+		padding: '20px',
+		width: '180px',
+		textAlign: 'center',
+		borderRadius: '10px',
+		backgroundColor: '#839690'
+	},
+	deleteBtn: {
+		backgroundColor: '#fff',
+		padding: '20px',
+		border: '1px solid #E1B0A2',
+		borderRadius: '10px',
+		fontSize: '16px',
+		fontFamily: `'Source Sans Pro', sans-serif`,
 	}
 })
 
