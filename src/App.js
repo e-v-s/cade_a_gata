@@ -14,18 +14,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Body />
-      {
-        window.location.href === 'https://cade-a-gata.vercel.app/' ? <Body /> : 
-        <Router>
-          <Link to='/login' />
-          <Switch>
-            <Route path='/login'>
-              <Login />
-            </Route>
-          </Switch>
-        </Router>
-      }      
+      <Login />
     </div>
   );
 }
@@ -33,3 +22,14 @@ function App() {
 export default App;
 
 
+// {
+//   window.location.href === 'https://cade-a-gata.vercel.app/' ? <Body /> : 
+//   <Router>
+//     <Link to='/login' />
+//     <Switch>
+//       <Route path='/login'>
+//         <Login />
+//       </Route>
+//     </Switch>
+//   </Router>
+// }      
