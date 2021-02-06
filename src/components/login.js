@@ -64,6 +64,15 @@ function Login(props) {
 			});
 		}
 
+		const handleDelete = (e) => {
+			e.preventDefault();
+			
+			let name = e.target.id.substr(e.target.id.indexOf('%2F') + 3, (e.target.id.indexOf('?')) - (e.target.id.indexOf('%2F') + 3));
+			name = name.replace('%20',' '); 
+			let storagePath = firebase.storage().ref(e.target.value);
+			storagePath.child(`${name.replace(/%20/g, " ")}`).delete().then(() => window.location.reload()).catch(error => console.error(error.message));
+		}
+
 		return(
 			<div>
 				<button className={css(style.btn)} onClick={() => handleSignOut()}>Logout</button>
@@ -102,7 +111,12 @@ function Login(props) {
 						<div>
 							<h2 onClick={() => {productType !== 'coleiras' ? setProductType('coleiras') : setProductType('')}}>Coleiras</h2>
 							{
-								productType === 'coleiras' ? props.coleiras.map(i => <img src={i} alt='' />) : null
+								productType === 'coleiras' ? props.coleiras.map(i => {
+									return(<div>
+										<img src={i} alt='' />
+										<button id={i} value='coleiras' onClick={(e) => handleDelete(e)}>Apagar produtinho</button>
+									</div>
+									)}) : null
 							}
 						</div>
 						<div>
