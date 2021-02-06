@@ -23,6 +23,7 @@ function Login(props) {
 				setUploadValue(0);
 				setFile('');
 				window.location.reload();
+				alert('Foto upada!');
 			}, 2000); 
 		};
 	});
@@ -54,7 +55,7 @@ function Login(props) {
 		const handleUpload = (e) => {
 			e.preventDefault();
 
-			if(e.target.value !== '') {
+			if(file !== '') {
 				const storageRef = firebase.storage().ref(`${e.target.id}/${file.name}`);
 				let task = storageRef.put(file);		
 							
@@ -219,7 +220,10 @@ const style = StyleSheet.create({
 		marginTop: '60px',
 		padding: '20px',
 		textAlign: 'center',
-		borderRadius: '10px'
+		borderRadius: '10px',
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'flex-start'
 	},
 	dashboardDelete: {
 		margin: '60px 0'
