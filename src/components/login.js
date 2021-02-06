@@ -1,6 +1,6 @@
 import { StyleSheet, css } from 'aphrodite';
 // import firebaseui from 'firebaseui';
-import firebase from '../utils/firebase';
+import * as firebase from '../utils/firebase';
 import React, { useEffect, useState } from 'react';
 
 function Login() {
@@ -19,7 +19,7 @@ function Login() {
 
 		// setLoading(true);
 
-		firebase.auth().signInWithEmailAndPassword(email, password)
+		firebase.default().auth().signInWithEmailAndPassword(email, password)
 			.then(() => {
 				console.log('logged')
 			})
@@ -33,7 +33,7 @@ function Login() {
 
 	const Dashboard = () => {
 		const handleSignOut = () => {
-			firebase.auth().signOut();
+			firebase.default().auth().signOut();
 		};
 
 		return(
@@ -44,7 +44,7 @@ function Login() {
 	}
 
 	useEffect(() => {
-		return firebase.auth().onAuthStateChanged(user => {
+		return firebase.default().auth().onAuthStateChanged(user => {
 			setCurrentUser(user);
 		})
 
