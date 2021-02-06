@@ -20,7 +20,7 @@ function App() {
           <Link to='/login' />
           <Switch>
             <Route path='/login'>
-              <p>aqui</p>
+              <Login />
             </Route>
           </Switch>
         </Router>

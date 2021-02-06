@@ -1,5 +1,5 @@
 import { StyleSheet, css } from 'aphrodite';
-import firebaseui from 'firebaseui';
+// import firebaseui from 'firebaseui';
 import firebase from '../utils/firebase';
 import React, { useEffect, useState } from 'react';
 
@@ -7,17 +7,17 @@ function Login() {
 	// Initialize the FirebaseUI Widget using Firebase.
 	// let ui = new firebaseui.auth.AuthUI(firebase.auth());
 
-	let FirebaseUserState = firebase.User; 
+	// let FirebaseUserState = firebase.User; 
 
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [loading, setLoading] = useState(false);
+	// const [loading, setLoading] = useState(false);
 	const [currentUser, setCurrentUser] = useState('');
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		setLoading(true);
+		// setLoading(true);
 
 		firebase.auth().signInWithEmailAndPassword(email, password)
 			.then(() => {
@@ -26,9 +26,9 @@ function Login() {
 			.catch( error => {
 				console.error(error)
 			})
-			.finally(() => {
-				setLoading(false)
-			})
+			// .finally(() => {
+			// 	setLoading(false)
+			// })
 	}
 
 	const Dashboard = () => {
