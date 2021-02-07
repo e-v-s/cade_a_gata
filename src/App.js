@@ -40,7 +40,7 @@ function App() {
       <Header />
       {
         window.location.href === 'https://cade-a-gata.vercel.app/' ? 
-        <Body />
+        <Body coleirasTeste={coleirasTeste} />
         : 
         <Router>
           <Link to='/login' />
