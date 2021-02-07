@@ -13,6 +13,7 @@ function Login(props) {
 	const [product, setProduct] = useState('');
 	const [uploadValue, setUploadValue] = useState(0);
 	const [productType, setProductType] = useState('');
+	const [focus, setFocus] = useState('');
 	
 	
 	let database = firebase.firestore();
@@ -28,6 +29,7 @@ function Login(props) {
 				setFile('');
 				window.location.reload();
 				alert('Foto upada!');
+				setFocus('');
 			}, 2000); 
 		};
 	});
@@ -55,6 +57,7 @@ function Login(props) {
 		const handleChangeUpload = (e) => {
 			setFile(e.target.files[0]);
 			setProduct(e.target.id);
+			setFocus(e.target.id)
 		}
 
 		const handleChangeRef = (e) => {
@@ -68,7 +71,7 @@ function Login(props) {
 		}
 
 		const handleUpload = (e) => {
-			e.preventDefault();
+			e.preventDefault();			
 
 			if(file !== '') {
 				const storageRef = firebase.storage().ref(`${e.target.id}/${file.name}`);
@@ -76,8 +79,7 @@ function Login(props) {
 							
 				task.on('state_changed', (snapshot) => {
 					let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-					setUploadValue(percentage)
-					
+					setUploadValue(percentage);
 				}, (error) => {
 					console.error(error.message)
 				});
@@ -113,7 +115,7 @@ function Login(props) {
 				{
 					productType === 'uploads' ? 
 					<div>
-						<form className={css(style.dashboardUpload)}>
+						<form className={css(style.dashboardUpload)} style={focus === 'coleirasUp' ? {backgroundColor: '#D9A7BE'} : null}>
 							<h2 className={css(style.title)}>Nessa sessão você faz upload <span style={{fontSize: '30px'}}>SÓ DE COLEIRAS</span></h2>
 							<input id="coleirasUp" type="file" onChange={(e) => handleChangeUpload(e)} accept="image/png, image/jpeg" />
 							<input type='text' placeholder='Referência' key='ref' onChange={(e) => handleChangeRef(e)} />
@@ -122,10 +124,10 @@ function Login(props) {
 								uploadValue !== 0 && product === 'coleirasUp' ? <progress max='100' value={uploadValue}>{uploadValue} %</progress> : null
 							}						
 							{
-								file !== '' && product === 'coleirasUp' ? <div><button id="coleiras" onClick={(e) => handleUpload(e)}>Upload</button><button onClick={() => {setFile(''); setProduct('')}}>Cancelar upload</button></div> : <button id="coleiras" onClick={(e) => handleUpload(e)}>Upload</button>
+								file !== '' && product === 'coleirasUp' ? <div><button id="coleiras" onClick={(e) => handleUpload(e)}>Upload</button><button onClick={() => {setFile(''); setProduct(''); setFocus('')}}>Cancelar upload</button></div> : <button id="coleiras" onClick={(e) => handleUpload(e)}>Upload</button>
 							}						
 						</form>
-						<form className={css(style.dashboardUpload)}>
+						<form className={css(style.dashboardUpload)} style={focus === 'caminhasUp' ? {backgroundColor: '#D9A7BE'} : null}>
 							<h2 className={css(style.title)}>Nessa aqui <span style={{fontSize: '30px'}}>SÓ DE</span> caminhas</h2>
 							<input id="caminhasUp" type="file" onChange={(e) => handleChangeUpload(e)} accept="image/png, image/jpeg" />
 							<input type='text' placeholder='Referência' key='ref2' onChange={(e) => handleChangeRef(e)} />
@@ -134,10 +136,10 @@ function Login(props) {
 								uploadValue !== 0 && product === 'caminhasUp' ? <progress max='100' value={uploadValue}>{uploadValue} %</progress> : null
 							}						
 							{
-								file !== '' && product === 'caminhasUp' ? <div><button id="caminhas" onClick={(e) => handleUpload(e)}>Upload</button><button onClick={() => {setFile(''); setProduct('')}}>Cancelar upload</button></div> : <button id="caminhas" onClick={(e) => handleUpload(e)}>Upload</button>
+								file !== '' && product === 'caminhasUp' ? <div><button id="caminhas" onClick={(e) => handleUpload(e)}>Upload</button><button onClick={() => {setFile(''); setProduct(''); setProduct(''); setFocus('')}}>Cancelar upload</button></div> : <button id="caminhas" onClick={(e) => handleUpload(e)}>Upload</button>
 							}
 						</form>
-						<form className={css(style.dashboardUpload)}>
+						<form className={css(style.dashboardUpload)} style={focus === 'arranhadoresUp' ? {backgroundColor: '#D9A7BE'} : null}>
 							<h2 className={css(style.title)}>E nessa só de arranhadores</h2>
 							<input id="arranhadoresUp" type="file" onChange={(e) => handleChangeUpload(e)} accept="image/png, image/jpeg" />
 							<input type='text' placeholder='Referência' key='ref3' onChange={(e) => handleChangeRef(e)} />
@@ -146,7 +148,7 @@ function Login(props) {
 								uploadValue !== 0 && product === 'arranhadoresUp' ? <progress max='100' value={uploadValue}>{uploadValue} %</progress> : null
 							}						
 							{
-								file !== '' && product === 'arranhadoresUp' ? <div><button id="arranhadores" onClick={(e) => handleUpload(e)}>Upload</button><button onClick={() => {setFile(''); setProduct('')}}>Cancelar upload</button></div> : <button id="arranhadores" onClick={(e) => handleUpload(e)}>Upload</button>
+								file !== '' && product === 'arranhadoresUp' ? <div><button id="arranhadores" onClick={(e) => handleUpload(e)}>Upload</button><button onClick={() => {setFile(''); setProduct(''); setProduct(''); setFocus('')}}>Cancelar upload</button></div> : <button id="arranhadores" onClick={(e) => handleUpload(e)}>Upload</button>
 							}
 						</form>
 					</div>
@@ -285,7 +287,7 @@ const style = StyleSheet.create({
 		borderRadius: '10px',
 		display: 'flex',
 		flexDirection: 'column',
-		alignItems: 'flex-start'
+		alignItems: 'flex-start',
 	},
 	dashboardDelete: {
 		margin: '30px 0'
