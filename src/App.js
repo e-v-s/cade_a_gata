@@ -14,24 +14,24 @@ import {
 import Login from './components/login';
 
 function App() {
-  const [coleirasTeste, setColeirasTeste] = useState([]);
+  const [coleiras, setColeiras] = useState([]);
   // let db = firebase.firestore().ref('coleiras');
   // let dbCaminhas = firebase.storage().ref('caminhas').listAll();
   // let dbArranhadores = firebase.storage().ref('arranhadores').listAll();
 
-  let listaTeste = [];
+  let lista = [];
 
   useEffect(() => {
     firebase.firestore().collection('coleiras').get().then(snapshot => snapshot.forEach(i => {
       firebase.storage().refFromURL(`${i.data().produto}`).getDownloadURL().then( url => {
-        return listaTeste.push({
+        return lista.push({
           id: i.id,
           url: url,
           value: i.data().valor,
           reference: i.data().ref,        
         })
       })
-    })).then(() => {return setColeirasTeste(listaTeste)});
+    })).then(() => {return setColeiras(lista)});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
@@ -40,14 +40,14 @@ function App() {
       <Header />
       {
         window.location.href === 'https://cade-a-gata.vercel.app/' ? 
-        <Body coleirasTeste={coleirasTeste} />
+        <Body coleiras={coleiras} />
         : 
         <Router>
           <Link to='/login' />
           <Switch>
             <Route path='/login'>
             {
-              coleirasTeste !== 0 ? <Login coleirasTeste={coleirasTeste} /> : <Login coleirasTeste={coleirasTeste} />
+              coleiras !== 0 ? <Login coleiras={coleiras} /> : <Login coleiras={coleiras} />
             }      
             </Route>
           </Switch>
@@ -68,7 +68,7 @@ export default App;
 //     <Switch>
 //       <Route path='/login'>
 //       {
-//         coleirasTeste !== 0 ? <Login coleirasTeste={coleirasTeste} /> : <Login coleirasTeste={coleirasTeste} />
+//         coleiras !== 0 ? <Login coleiras={coleiras} /> : <Login coleiras={coleiras} />
 //       }      
 //       </Route>
 //     </Switch>

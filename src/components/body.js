@@ -6,7 +6,7 @@ import ImageGallery from 'react-image-gallery';
 function Body(props) {
 	const [menuType, setMenuType] = useState('');
 
-	const coleiras = props.coleirasTeste.map(i => {
+	const coleiras = props.coleiras.map(i => {
 		return {
 			original: i.url,
 			thumbnail: i.url,

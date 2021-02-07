@@ -158,7 +158,7 @@ function Login(props) {
 						<div className={css(style.deleteSection)}>
 							<h2 className={css(style.productBtn)} onClick={() => {productType !== 'coleiras' ? setProductType('coleiras') : setProductType('')}}>Coleiras</h2>
 							{
-								productType === 'coleiras' ? props.coleirasTeste.map(i => {
+								productType === 'coleiras' ? props.coleiras.map(i => {
 									return(
 										<div className={css(style.deleteImage)}>
 											<img className={css(style.image)} src={i.url} alt='' />
