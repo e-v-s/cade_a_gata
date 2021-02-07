@@ -4,6 +4,8 @@ import 'firebase/auth';
 import 'firebase/storage';
 import 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
+import UploadProduct from './uploadProduct';
+import DeleteEditProduct from './deleteEditProduct';
 
 function Login(props) {
 	const [email, setEmail] = useState('');
@@ -109,95 +111,114 @@ function Login(props) {
 
 		return(
 			<div className={css(style.dashboard)}>
+				
 				<button className={css(style.btn)} onClick={() => handleSignOut()}>Logout</button>
 				<h2 className={css(style.title)} style={{fontSize: '30px', marginTop: '60px'}}>Aqui você faz upload dos produtos:</h2>
 				<h2 className={css(style.productBtn)} onClick={() => {productType !== 'uploads' ? setProductType('uploads') : setProductType('')}}>UPLOADS</h2>
 				{
 					productType === 'uploads' ? 
 					<div>
-						<form className={css(style.dashboardUpload)} style={focus === 'coleirasUp' ? {backgroundColor: '#D9A7BE'} : null}>
-							<h2 className={css(style.title)}>Nessa sessão você faz upload <span style={{fontSize: '30px'}}>SÓ DE COLEIRAS</span></h2>
-							<input id="coleirasUp" type="file" onChange={(e) => handleChangeUpload(e)} accept="image/png, image/jpeg" />
-							<input type='text' placeholder='Referência' key='ref' onChange={(e) => handleChangeRef(e)} />
-							<input type='number' placeholder='Valor' key='val' onChange={(e) => handleChangeVal(e)} />
-							{
-								uploadValue !== 0 && product === 'coleirasUp' ? <progress max='100' value={uploadValue}>{uploadValue} %</progress> : null
-							}						
-							{
-								file !== '' && product === 'coleirasUp' ? <div><button id="coleiras" onClick={(e) => handleUpload(e)}>Upload</button><button onClick={() => {setFile(''); setProduct(''); setFocus('')}}>Cancelar upload</button></div> : <button id="coleiras" onClick={(e) => handleUpload(e)}>Upload</button>
-							}						
-						</form>
-						<form className={css(style.dashboardUpload)} style={focus === 'caminhasUp' ? {backgroundColor: '#D9A7BE'} : null}>
-							<h2 className={css(style.title)}>Nessa aqui <span style={{fontSize: '30px'}}>SÓ DE</span> caminhas</h2>
-							<input id="caminhasUp" type="file" onChange={(e) => handleChangeUpload(e)} accept="image/png, image/jpeg" />
-							<input type='text' placeholder='Referência' key='ref2' onChange={(e) => handleChangeRef(e)} />
-							<input type='number' placeholder='Valor' key='val2' onChange={(e) => handleChangeVal(e)} />
-							{
-								uploadValue !== 0 && product === 'caminhasUp' ? <progress max='100' value={uploadValue}>{uploadValue} %</progress> : null
-							}						
-							{
-								file !== '' && product === 'caminhasUp' ? <div><button id="caminhas" onClick={(e) => handleUpload(e)}>Upload</button><button onClick={() => {setFile(''); setProduct(''); setProduct(''); setFocus('')}}>Cancelar upload</button></div> : <button id="caminhas" onClick={(e) => handleUpload(e)}>Upload</button>
-							}
-						</form>
-						<form className={css(style.dashboardUpload)} style={focus === 'arranhadoresUp' ? {backgroundColor: '#D9A7BE'} : null}>
-							<h2 className={css(style.title)}>E nessa só de arranhadores</h2>
-							<input id="arranhadoresUp" type="file" onChange={(e) => handleChangeUpload(e)} accept="image/png, image/jpeg" />
-							<input type='text' placeholder='Referência' key='ref3' onChange={(e) => handleChangeRef(e)} />
-							<input type='number' placeholder='Valor' key='val3' onChange={(e) => handleChangeVal(e)} />
-							{
-								uploadValue !== 0 && product === 'arranhadoresUp' ? <progress max='100' value={uploadValue}>{uploadValue} %</progress> : null
-							}						
-							{
-								file !== '' && product === 'arranhadoresUp' ? <div><button id="arranhadores" onClick={(e) => handleUpload(e)}>Upload</button><button onClick={() => {setFile(''); setProduct(''); setProduct(''); setFocus('')}}>Cancelar upload</button></div> : <button id="arranhadores" onClick={(e) => handleUpload(e)}>Upload</button>
-							}
-						</form>
+						<UploadProduct 
+							formClass={css(style.dashboardUpload)} 
+							formFocus={focus === 'coleirasUp' ? {backgroundColor: '#D9A7BE'} : null} 
+							h2Class={css(style.title)} 
+							h2Text='Nessa seção você faz upload SÓ DE COLEIRAS'
+							inputUpId='coleirasUp'
+							inputUpOnchange={(e) => handleChangeUpload(e)}
+							refKey='ref1'
+							valKey='val1'
+							refOnchange={(e) => handleChangeRef(e)}
+							valOnchange={(e) => handleChangeVal(e)}
+							uploadValue={uploadValue}
+							product={product}
+							file={file}
+							id='coleiras'
+							handleUpload={(e) => handleUpload(e)}
+							setFile={setFile}
+							setProduct={setProduct}
+							setFocus={setFocus}
+						/>
+						<UploadProduct 
+							formClass={css(style.dashboardUpload)} 
+							formFocus={focus === 'caminhasUp' ? {backgroundColor: '#D9A7BE'} : null} 
+							h2Class={css(style.title)} 
+							h2Text='Nessa aqui você faz SÓ DE caminhas'
+							inputUpId='caminhasUp'
+							inputUpOnchange={(e) => handleChangeUpload(e)}
+							refKey='ref2'
+							valKey='val2'
+							refOnchange={(e) => handleChangeRef(e)}
+							valOnchange={(e) => handleChangeVal(e)}
+							uploadValue={uploadValue}
+							product={product}
+							file={file}
+							id='caminhas'
+							handleUpload={(e) => handleUpload(e)}
+							setFile={setFile}
+							setProduct={setProduct}
+							setFocus={setFocus}
+						/>
+						<UploadProduct 
+							formClass={css(style.dashboardUpload)} 
+							formFocus={focus === 'arranhadoresUp' ? {backgroundColor: '#D9A7BE'} : null} 
+							h2Class={css(style.title)} 
+							h2Text='E aqui você faz só de arranhadores'
+							inputUpId='arranhadoresUp'
+							inputUpOnchange={(e) => handleChangeUpload(e)}
+							refKey='ref3'
+							valKey='val3'
+							refOnchange={(e) => handleChangeRef(e)}
+							valOnchange={(e) => handleChangeVal(e)}
+							uploadValue={uploadValue}
+							product={product}
+							file={file}
+							id='arranhadores'
+							handleUpload={(e) => handleUpload(e)}
+							setFile={setFile}
+							setProduct={setProduct}
+							setFocus={setFocus}
+						/>
 					</div>
 					: null
 				}					
 					<div className={css(style.dashboardDelete)}>
 						<h2 className={css(style.title)} style={{fontSize: '30px'}}>Aqui você olha o que tem em cada sessão:</h2>
-						<div className={css(style.deleteSection)}>
-							<h2 className={css(style.productBtn)} onClick={() => {productType !== 'coleiras' ? setProductType('coleiras') : setProductType('')}}>Coleiras</h2>
-							{
-								productType === 'coleiras' ? props.coleiras.map(i => {
-									return(
-										<div className={css(style.deleteImage)}>
-											<img className={css(style.image)} src={i.url} alt='' />
-											<p>Referência: {i.reference}</p>
-											<p>Valor: {i.value},oo</p>
-											<button className={css(style.deleteBtn)} id={i.id} data-url={i.url} value='coleiras' onClick={(e) => handleDelete(e)}>Apagar produtinho</button>
-										</div>
-									)}) : null
-							}
-						</div>
-						<div className={css(style.deleteSection)}>
-							<h2 className={css(style.productBtn)} onClick={() => {productType !== 'caminhas' ? setProductType('caminhas') : setProductType('')}}>Caminhas</h2>
-							{
-								productType === 'caminhas' ? props.caminhas.map(i => {
-									return(
-										<div className={css(style.deleteImage)}>
-											<img className={css(style.image)} src={i.url} alt='' />
-											<p>Referência: {i.reference}</p>
-											<p>Valor: {i.value},oo</p>
-											<button className={css(style.deleteBtn)} id={i.id} data-url={i.url} value='caminhas' onClick={(e) => handleDelete(e)}>Apagar produtinho</button>
-										</div>
-									)}) : null
-							}
-						</div>
-						<div className={css(style.deleteSection)}>
-						<h2 className={css(style.productBtn)} onClick={() => {productType !== 'arranhadores' ? setProductType('arranhadores') : setProductType('')}}>Arranhadores</h2>
-						{
-							productType === 'arranhadores' ? props.arranhadores.map(i => {
-								return(
-									<div className={css(style.deleteImage)}>
-										<img className={css(style.image)} src={i.url} alt='' />
-										<p>Referência: {i.reference}</p>
-										<p>Valor: {i.value},oo</p>
-										<button className={css(style.deleteBtn)} id={i.id} data-url={i.url} value='arranhadores' onClick={(e) => handleDelete(e)}>Apagar produtinho</button>
-									</div>
-								)}) : null
-						}
-						</div>
+						<DeleteEditProduct
+							styleSection={css(style.deleteSection)}
+							styleDeleteSection={css(style.productBtn)}
+							sectionId='coleiras'
+							setProductType={setProductType}
+							productType={productType}
+							styleCardImage={css(style.deleteImage)}
+							styleImg={css(style.image)}
+							styleDeleteBtn={css(style.deleteBtn)}
+							delete={handleDelete}
+							products={props.coleiras}
+						/>
+						<DeleteEditProduct
+							styleSection={css(style.deleteSection)}
+							styleDeleteSection={css(style.productBtn)}
+							sectionId='caminhas'
+							setProductType={setProductType}
+							productType={productType}
+							styleCardImage={css(style.deleteImage)}
+							styleImg={css(style.image)}
+							styleDeleteBtn={css(style.deleteBtn)}
+							delete={handleDelete}
+							products={props.caminhas}
+						/>
+						<DeleteEditProduct
+							styleSection={css(style.deleteSection)}
+							styleDeleteSection={css(style.productBtn)}
+							sectionId='arranhadores'
+							setProductType={setProductType}
+							productType={productType}
+							styleCardImage={css(style.deleteImage)}
+							styleImg={css(style.image)}
+							styleDeleteBtn={css(style.deleteBtn)}
+							delete={handleDelete}
+							products={props.arranhadores}
+						/>
 					</div>
 			</div>
 		)
