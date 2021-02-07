@@ -95,14 +95,9 @@ function Login(props) {
 		const handleDelete = (e) => {
 			e.preventDefault();
 
-			// let storagePath = firebase.storage().ref(e.target.value);
-			// let name = e.target.id.substr(e.target.id.indexOf('%2F') + 3, (e.target.id.indexOf('?')) - (e.target.id.indexOf('%2F') + 3));
 			let firestorePath = firebase.firestore().collection(e.target.value);
 			let firestoreFile = e.target.id;
 			
-
-			// name = name.replace('%20',' '); 
-			// storagePath.child(`${name.replace(/%20/g, " ")}`).delete().then(() => window.location.reload()).catch(error => console.error(error.message));
 			firestorePath.doc(firestoreFile).delete().then(() => console.log('delete ok')).catch( error => console.error(error.message));
 			firebase.storage().refFromURL(e.target.dataset.url).delete().then(() => {
 				window.location.reload();
@@ -122,7 +117,7 @@ function Login(props) {
 							<h2 className={css(style.title)}>Nessa sessão você faz upload <span style={{fontSize: '30px'}}>SÓ DE COLEIRAS</span></h2>
 							<input id="coleirasUp" type="file" onChange={(e) => handleChangeUpload(e)} accept="image/png, image/jpeg" />
 							<input type='text' placeholder='Referência' key='ref' onChange={(e) => handleChangeRef(e)} />
-							<input type='number' placeholder='Valor' key='val' value={val} onChange={(e) => handleChangeVal(e)} />
+							<input type='number' placeholder='Valor' key='val' onChange={(e) => handleChangeVal(e)} />
 							{
 								uploadValue !== 0 && product === 'coleirasUp' ? <progress max='100' value={uploadValue}>{uploadValue} %</progress> : null
 							}						
@@ -132,7 +127,9 @@ function Login(props) {
 						</form>
 						<form className={css(style.dashboardUpload)}>
 							<h2 className={css(style.title)}>Nessa aqui <span style={{fontSize: '30px'}}>SÓ DE</span> caminhas</h2>
-							<input id="caminhasUp" type="file" onChange={handleChangeUpload}></input>
+							<input id="caminhasUp" type="file" onChange={(e) => handleChangeUpload(e)} accept="image/png, image/jpeg" />
+							<input type='text' placeholder='Referência' key='ref2' onChange={(e) => handleChangeRef(e)} />
+							<input type='number' placeholder='Valor' key='val2' onChange={(e) => handleChangeVal(e)} />
 							{
 								uploadValue !== 0 && product === 'caminhasUp' ? <progress max='100' value={uploadValue}>{uploadValue} %</progress> : null
 							}						
@@ -142,7 +139,9 @@ function Login(props) {
 						</form>
 						<form className={css(style.dashboardUpload)}>
 							<h2 className={css(style.title)}>E nessa só de arranhadores</h2>
-							<input id="arranhadoresUp" type="file" onChange={handleChangeUpload}></input>
+							<input id="arranhadoresUp" type="file" onChange={(e) => handleChangeUpload(e)} accept="image/png, image/jpeg" />
+							<input type='text' placeholder='Referência' key='ref3' onChange={(e) => handleChangeRef(e)} />
+							<input type='number' placeholder='Valor' key='val3' onChange={(e) => handleChangeVal(e)} />
 							{
 								uploadValue !== 0 && product === 'arranhadoresUp' ? <progress max='100' value={uploadValue}>{uploadValue} %</progress> : null
 							}						
@@ -172,11 +171,30 @@ function Login(props) {
 						<div className={css(style.deleteSection)}>
 							<h2 className={css(style.productBtn)} onClick={() => {productType !== 'caminhas' ? setProductType('caminhas') : setProductType('')}}>Caminhas</h2>
 							{
-								productType === 'caminhas' ? <p>caminhas</p> : null
+								productType === 'caminhas' ? props.caminhas.map(i => {
+									return(
+										<div className={css(style.deleteImage)}>
+											<img className={css(style.image)} src={i.url} alt='' />
+											<p>Referência: {i.reference}</p>
+											<p>Valor: {i.value},oo</p>
+											<button className={css(style.deleteBtn)} id={i.id} data-url={i.url} value='caminhas' onClick={(e) => handleDelete(e)}>Apagar produtinho</button>
+										</div>
+									)}) : null
 							}
 						</div>
 						<div className={css(style.deleteSection)}>
-							<h2 className={css(style.productBtn)}>Arranhadores</h2>
+						<h2 className={css(style.productBtn)} onClick={() => {productType !== 'arranhadores' ? setProductType('arranhadores') : setProductType('')}}>Arranhadores</h2>
+						{
+							productType === 'arranhadores' ? props.arranhadores.map(i => {
+								return(
+									<div className={css(style.deleteImage)}>
+										<img className={css(style.image)} src={i.url} alt='' />
+										<p>Referência: {i.reference}</p>
+										<p>Valor: {i.value},oo</p>
+										<button className={css(style.deleteBtn)} id={i.id} data-url={i.url} value='arranhadores' onClick={(e) => handleDelete(e)}>Apagar produtinho</button>
+									</div>
+								)}) : null
+						}
 						</div>
 					</div>
 			</div>

@@ -9,17 +9,17 @@ import {
   Switch,
   Route,
   Link,
-  // useParams
 } from "react-router-dom";
 import Login from './components/login';
 
 function App() {
   const [coleiras, setColeiras] = useState([]);
-  // let db = firebase.firestore().ref('coleiras');
-  // let dbCaminhas = firebase.storage().ref('caminhas').listAll();
-  // let dbArranhadores = firebase.storage().ref('arranhadores').listAll();
+  const [caminhas, setCaminhas] = useState([]);
+  const [arranhadores, setArranhadores] = useState([]);
 
   let lista = [];
+  let listaCaminhas = [];
+  let listaArranhadores = [];
 
   useEffect(() => {
     firebase.firestore().collection('coleiras').get().then(snapshot => snapshot.forEach(i => {
@@ -32,27 +32,36 @@ function App() {
         })
       })
     })).then(() => {return setColeiras(lista)});
+
+    firebase.firestore().collection('caminhas').get().then(snapshot => snapshot.forEach(i => {
+      firebase.storage().refFromURL(`${i.data().produto}`).getDownloadURL().then( url => {
+        return listaCaminhas.push({
+          id: i.id,
+          url: url,
+          value: i.data().valor,
+          reference: i.data().ref,        
+        })
+      })
+    })).then(() => {return setCaminhas(listaCaminhas)});
+
+    firebase.firestore().collection('arranhadores').get().then(snapshot => snapshot.forEach(i => {
+      firebase.storage().refFromURL(`${i.data().produto}`).getDownloadURL().then( url => {
+        return listaArranhadores.push({
+          id: i.id,
+          url: url,
+          value: i.data().valor,
+          reference: i.data().ref,        
+        })
+      })
+    })).then(() => {return setArranhadores(listaArranhadores)});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   
   return (
     <div className="App">
       <Header />
-      {
-        window.location.href === 'https://cade-a-gata.vercel.app/' ? 
-        <Body coleiras={coleiras} />
-        : 
-        <Router>
-          <Link to='/login' />
-          <Switch>
-            <Route path='/login'>
-            {
-              coleiras !== 0 ? <Login coleiras={coleiras} /> : <Login coleiras={coleiras} />
-            }      
-            </Route>
-          </Switch>
-        </Router>
-      }                  
+      <Body coleiras={coleiras} caminhas={caminhas} arranhadores={arranhadores} />                  
     </div>
   );
 }
@@ -68,7 +77,7 @@ export default App;
 //     <Switch>
 //       <Route path='/login'>
 //       {
-//         coleiras !== 0 ? <Login coleiras={coleiras} /> : <Login coleiras={coleiras} />
+//         coleiras !== 0 ? <Login coleiras={coleiras} caminhas={caminhas} arranhadores={arranhadores} /> : <Login coleiras={coleiras} caminhas={caminhas} arranhadores={arranhadores} />
 //       }      
 //       </Route>
 //     </Switch>

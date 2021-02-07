@@ -10,7 +10,23 @@ function Body(props) {
 		return {
 			original: i.url,
 			thumbnail: i.url,
-			description: `Referência ${i.reference} - Valor: R$ ${i.value},oo`
+			description: `Referência: ${i.reference} - Valor: R$ ${i.value},oo`
+		}
+	});
+
+	const caminhas = props.caminhas.map(i => {
+		return {
+			original: i.url,
+			thumbnail: i.url,
+			description: `Referência: ${i.reference} - Valor: R$ ${i.value},oo`
+		}
+	});
+
+	const arranhadores = props.arranhadores.map(i => {
+		return {
+			original: i.url,
+			thumbnail: i.url,
+			description: `Referência: ${i.reference} - Valor: R$ ${i.value},oo`
 		}
 	});
 	
@@ -24,11 +40,11 @@ function Body(props) {
 			}
 			<div className={css(style.section)} onClick={() => {menuType !== 'caminhas' ? setMenuType('caminhas') : setMenuType('')}}>Caminhas</div>
 			{
-				menuType === 'caminhas' ? <p>caminhas</p> : null
+				menuType === 'caminhas' ? <ImageGallery items={caminhas} showPlayButton={false} /> : null
 			}
 			<div className={css(style.section)} onClick={() => {menuType !== 'arranhadores' ? setMenuType('arranhadores') : setMenuType('')}}>Arranhadores</div>
 			{
-				menuType === 'arranhadores' ? <p>arranhadores</p> : null
+				menuType === 'arranhadores' ? <ImageGallery items={arranhadores} showPlayButton={false} /> : null
 			}
 		</div>
 	)
