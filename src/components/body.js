@@ -9,22 +9,15 @@ import coleira03 from '../images/coleira_ref_03.webp';
 
 function Body(props) {
 	const [menuType, setMenuType] = useState('');
-	const coleiras = [
-		{
-			original: coleira01,
-			thumbnail: coleira01,
-			description: 'Referência 01 - Valor: R$ 8,oo'
-		},
-		{
-			original: coleira02,
-			thumbnail: coleira02
-		},
-		{
-			original: coleira03,
-			thumbnail: coleira03
-		}
-	]
 
+	const coleiras = props.coleirasTeste.map(i => {
+		return {
+			original: i.url,
+			thumbnail: i.url,
+			description: `Referência ${i.reference} - Valor: R$ ${i.value},oo`
+		}
+	})
+	
   return(
 		<div className={css(style.sections)}>
 			<p className={css(style.text)}>Olá, somos uma lojinha pensada para trazer pra perto de você produtinhos para seu pet, aqui você pode encontrar tudo o que temos no momento<br></br>=^.^=</p>
