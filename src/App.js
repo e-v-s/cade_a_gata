@@ -44,11 +44,13 @@ function App() {
           <Link to='/login' />
           <Switch>
             <Route path='/login'>
-              <Login coleiras={coleirasTeste} />
+            {
+              coleirasTeste !== 0 ? <Login coleirasTeste={coleirasTeste} /> : <Login coleirasTeste={coleirasTeste} />
+            }      
             </Route>
           </Switch>
         </Router>
-      }            
+      }      
     </div>
   );
 }
@@ -61,7 +63,9 @@ export default App;
 //     <Link to='/login' />
 //     <Switch>
 //       <Route path='/login'>
-//         <Login coleiras={coleirasTeste} />
+//       {
+//         coleirasTeste !== 0 ? <Login coleirasTeste={coleirasTeste} /> : <Login coleirasTeste={coleirasTeste} />
+//       }      
 //       </Route>
 //     </Switch>
 //   </Router>
