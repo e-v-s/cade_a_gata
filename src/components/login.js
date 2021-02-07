@@ -13,8 +13,8 @@ function Login(props) {
 	const [product, setProduct] = useState('');
 	const [uploadValue, setUploadValue] = useState(0);
 	const [productType, setProductType] = useState('');
-	const [ref, setRef] = useState('');
-	const [val, setVal] = useState(0);
+	
+	
 	let database = firebase.firestore();
 
 	useEffect(() => {		
@@ -45,12 +45,14 @@ function Login(props) {
 	}
 
 	const Dashboard = () => {
+		const [ref, setRef] = useState('');
+		const [val, setVal] = useState(0);
+
 		const handleSignOut = () => {
 			firebase.auth().signOut();
 		};
 
 		const handleChangeUpload = (e) => {
-			e.preventDefault();
 			setFile(e.target.files[0]);
 			setProduct(e.target.id);
 		}
@@ -93,11 +95,19 @@ function Login(props) {
 		const handleDelete = (e) => {
 			e.preventDefault();
 
-			let storagePath = firebase.storage().ref(e.target.value);
-			let name = e.target.id.substr(e.target.id.indexOf('%2F') + 3, (e.target.id.indexOf('?')) - (e.target.id.indexOf('%2F') + 3));
+			// let storagePath = firebase.storage().ref(e.target.value);
+			// let name = e.target.id.substr(e.target.id.indexOf('%2F') + 3, (e.target.id.indexOf('?')) - (e.target.id.indexOf('%2F') + 3));
+			let firestorePath = firebase.firestore().collection(e.target.value);
+			let firestoreFile = e.target.id;
+			
 
-			name = name.replace('%20',' '); 
-			storagePath.child(`${name.replace(/%20/g, " ")}`).delete().then(() => window.location.reload()).catch(error => console.error(error.message));
+			// name = name.replace('%20',' '); 
+			// storagePath.child(`${name.replace(/%20/g, " ")}`).delete().then(() => window.location.reload()).catch(error => console.error(error.message));
+			firestorePath.doc(firestoreFile).delete().then(() => console.log('delete ok')).catch( error => console.error(error.message));
+			firebase.storage().refFromURL(e.target.dataset.url).delete().then(() => {
+				window.location.reload();
+			}).catch(error => console.error(error.message))
+			
 		}
 
 		return(
@@ -111,8 +121,8 @@ function Login(props) {
 						<form className={css(style.dashboardUpload)}>
 							<h2 className={css(style.title)}>Nessa sessão você faz upload <span style={{fontSize: '30px'}}>SÓ DE COLEIRAS</span></h2>
 							<input id="coleirasUp" type="file" onChange={(e) => handleChangeUpload(e)} accept="image/png, image/jpeg" />
-							<input type='text' placeholder='Referência' onChange={(e) => handleChangeRef(e)} />
-							<input type='number' placeholder='Valor' onChange={(e) => handleChangeVal(e)} />
+							<input type='text' placeholder='Referência' key='ref' onChange={(e) => handleChangeRef(e)} />
+							<input type='number' placeholder='Valor' key='val' value={val} onChange={(e) => handleChangeVal(e)} />
 							{
 								uploadValue !== 0 && product === 'coleirasUp' ? <progress max='100' value={uploadValue}>{uploadValue} %</progress> : null
 							}						
@@ -148,12 +158,14 @@ function Login(props) {
 						<div className={css(style.deleteSection)}>
 							<h2 className={css(style.productBtn)} onClick={() => {productType !== 'coleiras' ? setProductType('coleiras') : setProductType('')}}>Coleiras</h2>
 							{
-								productType === 'coleiras' ? props.coleiras.map(i => {
+								productType === 'coleiras' ? props.coleirasTeste.map(i => {
 									return(
-									<div className={css(style.deleteImage)}>
-										<img className={css(style.image)} src={i} alt='' />
-										<button className={css(style.deleteBtn)} id={i} value='coleiras' onClick={(e) => handleDelete(e)}>Apagar produtinho</button>
-									</div>
+										<div className={css(style.deleteImage)}>
+											<img className={css(style.image)} src={i.url} alt='' />
+											<p>Referência: {i.reference}</p>
+											<p>Valor: {i.value},oo</p>
+											<button className={css(style.deleteBtn)} id={i.id} data-url={i.url} value='coleiras' onClick={(e) => handleDelete(e)}>Apagar produtinho</button>
+										</div>
 									)}) : null
 							}
 						</div>
@@ -302,3 +314,12 @@ const style = StyleSheet.create({
 })
 
 export default Login;
+
+
+// productType === 'coleiras' ? props.coleiras.map(i => {
+// 	return(
+// 	<div className={css(style.deleteImage)}>
+// 		<img className={css(style.image)} src={i} alt='' />
+// 		<button className={css(style.deleteBtn)} id={i} value='coleiras' onClick={(e) => handleDelete(e)}>Apagar produtinho</button>
+// 	</div>
+// 	)}) : null
