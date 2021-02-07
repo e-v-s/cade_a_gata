@@ -2,6 +2,7 @@ import { StyleSheet, css } from 'aphrodite';
 import firebase from '../utils/firebase';
 import 'firebase/auth';
 import 'firebase/storage';
+import 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 
 function Login(props) {
@@ -12,6 +13,9 @@ function Login(props) {
 	const [product, setProduct] = useState('');
 	const [uploadValue, setUploadValue] = useState(0);
 	const [productType, setProductType] = useState('');
+	const [ref, setRef] = useState('');
+	const [val, setVal] = useState(0);
+	let database = firebase.firestore();
 
 	useEffect(() => {		
 		firebase.auth().onAuthStateChanged(user => {
@@ -51,6 +55,15 @@ function Login(props) {
 			setProduct(e.target.id);
 		}
 
+		const handleChangeRef = (e) => {
+			e.preventDefault();
+			setRef(e.target.value);
+		}
+
+		const handleChangeVal = (e) => {
+			e.preventDefault();
+			setVal(e.target.value);
+		}
 
 		const handleUpload = (e) => {
 			e.preventDefault();
@@ -62,9 +75,15 @@ function Login(props) {
 				task.on('state_changed', (snapshot) => {
 					let percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
 					setUploadValue(percentage)
+					
 				}, (error) => {
 					console.error(error.message)
 				});
+				database.collection(`${e.target.id}`).add({
+					produto: firebase.storage().ref(`${e.target.id}`).child(`${file.name}`).toString(),
+					ref: ref,
+					valor: val,
+				}).then(() => console.log('ok')).catch(error => console.error(error.message))
 			} else {
 				alert('Por favor, kirida, escolha a fota!')
 			}
@@ -74,9 +93,10 @@ function Login(props) {
 		const handleDelete = (e) => {
 			e.preventDefault();
 
-			let name = e.target.id.substr(e.target.id.indexOf('%2F') + 3, (e.target.id.indexOf('?')) - (e.target.id.indexOf('%2F') + 3));
-			name = name.replace('%20',' '); 
 			let storagePath = firebase.storage().ref(e.target.value);
+			let name = e.target.id.substr(e.target.id.indexOf('%2F') + 3, (e.target.id.indexOf('?')) - (e.target.id.indexOf('%2F') + 3));
+
+			name = name.replace('%20',' '); 
 			storagePath.child(`${name.replace(/%20/g, " ")}`).delete().then(() => window.location.reload()).catch(error => console.error(error.message));
 		}
 
@@ -91,6 +111,8 @@ function Login(props) {
 						<form className={css(style.dashboardUpload)}>
 							<h2 className={css(style.title)}>Nessa sessão você faz upload <span style={{fontSize: '30px'}}>SÓ DE COLEIRAS</span></h2>
 							<input id="coleirasUp" type="file" onChange={(e) => handleChangeUpload(e)} accept="image/png, image/jpeg" />
+							<input type='text' placeholder='Referência' onChange={(e) => handleChangeRef(e)} />
+							<input type='number' placeholder='Valor' onChange={(e) => handleChangeVal(e)} />
 							{
 								uploadValue !== 0 && product === 'coleirasUp' ? <progress max='100' value={uploadValue}>{uploadValue} %</progress> : null
 							}						
@@ -199,7 +221,8 @@ const style = StyleSheet.create({
 		backgroundColor: '#839690',
 		border: 'none',
 		fontFamily: `'Source Sans Pro', sans-serif`,
-		fontWeight: '300'
+		fontWeight: '300',
+		cursor: 'pointer',
 	},
 	loginBtn: {
 		width: '120px',
@@ -211,7 +234,8 @@ const style = StyleSheet.create({
 		backgroundColor: '#EDCFC4',
 		border: 'none',
 		fontFamily: `'Source Sans Pro', sans-serif`,
-		fontWeight: '300'
+		fontWeight: '300',
+		cursor: 'pointer'
 	},
 	title: {
 		color: '#6A6260',
@@ -263,7 +287,8 @@ const style = StyleSheet.create({
 		width: '180px',
 		textAlign: 'center',
 		borderRadius: '10px',
-		backgroundColor: '#839690'
+		backgroundColor: '#839690',
+		cursor: 'pointer',
 	},
 	deleteBtn: {
 		backgroundColor: '#fff',
@@ -272,6 +297,7 @@ const style = StyleSheet.create({
 		borderRadius: '10px',
 		fontSize: '16px',
 		fontFamily: `'Source Sans Pro', sans-serif`,
+		cursor: 'pointer'
 	}
 })
 

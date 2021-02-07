@@ -63,7 +63,8 @@ const style = StyleSheet.create({
 		padding: '30px 0',
 		marginBottom: '10px',
 		borderRadius: '10px',
-		backgroundColor: '#DADEE1'
+		backgroundColor: '#DADEE1',
+		cursor: 'pointer',
 	},
 	text: {
 		width: '70%',
