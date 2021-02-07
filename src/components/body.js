@@ -3,10 +3,6 @@ import React, { useState } from 'react';
 import "react-image-gallery/styles/css/image-gallery.css";
 import ImageGallery from 'react-image-gallery';
 
-import coleira01 from '../images/coleira_ref_01.png';
-import coleira02 from '../images/coleira_ref_02.png';
-import coleira03 from '../images/coleira_ref_03.webp';
-
 function Body(props) {
 	const [menuType, setMenuType] = useState('');
 
@@ -16,7 +12,7 @@ function Body(props) {
 			thumbnail: i.url,
 			description: `Referência ${i.reference} - Valor: R$ ${i.value},oo`
 		}
-	})
+	});
 	
   return(
 		<div className={css(style.sections)}>
