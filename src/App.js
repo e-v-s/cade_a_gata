@@ -11,6 +11,7 @@ import {
   Link,
 } from "react-router-dom";
 import Login from './components/login';
+import Footer from './components/footer';
 
 function App() {
   const [coleiras, setColeiras] = useState([]);
@@ -75,7 +76,8 @@ function App() {
             </Route>
           </Switch>
         </Router>
-      }      
+      }
+      <Footer />      
     </div>
   );
 }

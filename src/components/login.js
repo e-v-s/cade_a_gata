@@ -16,8 +16,7 @@ function Login(props) {
 	const [uploadValue, setUploadValue] = useState(0);
 	const [productType, setProductType] = useState('');
 	const [focus, setFocus] = useState('');
-	
-	
+		
 	let database = firebase.firestore();
 
 	useEffect(() => {		
@@ -93,7 +92,6 @@ function Login(props) {
 			} else {
 				alert('Por favor, kirida, escolha a fota!')
 			}
-
 		}
 
 		const handleDelete = (e) => {
@@ -105,8 +103,7 @@ function Login(props) {
 			firestorePath.doc(firestoreFile).delete().then(() => console.log('delete ok')).catch( error => console.error(error.message));
 			firebase.storage().refFromURL(e.target.dataset.url).delete().then(() => {
 				window.location.reload();
-			}).catch(error => console.error(error.message))
-			
+			}).catch(error => console.error(error.message));			
 		}
 
 		return(
@@ -182,7 +179,7 @@ function Login(props) {
 					: null
 				}					
 					<div className={css(style.dashboardDelete)}>
-						<h2 className={css(style.title)} style={{fontSize: '30px'}}>Aqui você olha o que tem em cada sessão:</h2>
+						<h2 className={css(style.title)} style={{fontSize: '30px'}}>Aqui você olha o que tem em cada seção:</h2>
 						<DeleteEditProduct
 							styleSection={css(style.deleteSection)}
 							styleDeleteSection={css(style.productBtn)}
@@ -355,12 +352,3 @@ const style = StyleSheet.create({
 })
 
 export default Login;
-
-
-// productType === 'coleiras' ? props.coleiras.map(i => {
-// 	return(
-// 	<div className={css(style.deleteImage)}>
-// 		<img className={css(style.image)} src={i} alt='' />
-// 		<button className={css(style.deleteBtn)} id={i} value='coleiras' onClick={(e) => handleDelete(e)}>Apagar produtinho</button>
-// 	</div>
-// 	)}) : null
