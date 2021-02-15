@@ -44,7 +44,9 @@ function Body(props) {
 					</div>
 					{
 						menuType === 'coleiras' ? 
-						<ImageGallery items={coleiras} showPlayButton={false} /> : null
+						<div style={{width: '820px', margin: '0 auto'}}>
+							<ImageGallery items={coleiras} showPlayButton={false} />
+						</div> : null
 					}
 					{
 						menuType === 'caminhas' ? 
@@ -61,7 +63,9 @@ function Body(props) {
 						<div className={css(style.section)} onClick={() => {menuType !== 'coleiras' ? setMenuType('coleiras') : setMenuType('')}}>Coleiras</div>
 						{
 							menuType === 'coleiras' ? 
-							<ImageGallery items={coleiras} showPlayButton={false} /> : null
+							<div style={{width: '320px', margin: '0 auto'}}>
+								<ImageGallery items={coleiras} showPlayButton={false} />
+							</div> : null
 						}
 					</div>
 					<div className={css(style.menu)}>
@@ -133,6 +137,9 @@ const style = StyleSheet.create({
 		'@media only screen and (min-width: 820px)':{
 			width: '50%',
 		}
+	},
+	img: {
+		display: 'none'
 	}
 })
 

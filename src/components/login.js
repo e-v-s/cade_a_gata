@@ -100,10 +100,12 @@ function Login(props) {
 			let firestorePath = firebase.firestore().collection(e.target.value);
 			let firestoreFile = e.target.id;
 			
-			firestorePath.doc(firestoreFile).delete().then(() => console.log('delete ok')).catch( error => console.error(error.message));
-			firebase.storage().refFromURL(e.target.dataset.url).delete().then(() => {
-				window.location.reload();
-			}).catch(error => console.error(error.message));			
+			firestorePath.doc(firestoreFile).delete().then(() => {
+				console.log('delete ok')
+				firebase.storage().refFromURL(e.target.dataset.url).delete().then(() => {
+					window.location.reload();
+				}).catch(error => console.error(error.message));			
+			}).catch( error => console.error(error.message));
 		}
 
 		return(
