@@ -68,21 +68,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      {
-        window.location.href === 'https://cade-a-gata.vercel.app/' ? 
-        <Body coleiras={coleiras} caminhas={caminhas} arranhadores={arranhadores} widthListener={width} />
-        : 
-        <Router>
-          <Link to='/login' />
-          <Switch>
-            <Route path='/login'>
-            {
-              coleiras !== 0 ? <Login coleiras={coleiras} caminhas={caminhas} arranhadores={arranhadores} /> : <Login coleiras={coleiras} caminhas={caminhas} arranhadores={arranhadores} />
-            }      
-            </Route>
-          </Switch>
-        </Router>
-      }            
+      <Body coleiras={coleiras} caminhas={caminhas} arranhadores={arranhadores} widthListener={width} />          
       <Footer />      
     </div>
   );
