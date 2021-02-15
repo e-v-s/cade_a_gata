@@ -78,8 +78,7 @@ function Body(props) {
 							<ImageGallery items={arranhadores} showPlayButton={false} /> : null
 						}
 					</div>
-				</div>
-				
+				</div>			
 			}
 		</div>
 	)
