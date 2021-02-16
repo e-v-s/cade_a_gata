@@ -32,7 +32,7 @@ function Body(props) {
 
   return(
 		<div className={css(style.sections)}>
-			<p className={css(style.text)}>Olá, somos uma lojinha pensada para trazer pra perto de você produtinhos para seu pet, aqui você pode encontrar tudo o que temos no momento<br></br>=^.^=</p>
+			<p className={css(style.text)}>Olá, somos uma lojinha pensada para levar pra perto de você produtinhos para seu pet, aqui você pode encontrar tudo o que temos no momento<br></br>=^.^=</p>
 			{
 				props.widthListener >= 820 ?
 				<div style={{width: '100%'}}>
