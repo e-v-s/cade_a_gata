@@ -43,19 +43,19 @@ function Body(props) {
 					</div>
 					{
 						menuType === 'coleiras' ? 
-						coleiras.length > 0 ? <div style={{width: '820px', margin: '0 auto'}}>
+						coleiras.length !== 0 ? <div style={{width: '620px', margin: '0 auto'}}>
 							<ImageGallery items={coleiras} showPlayButton={false} />
 						</div> : <p style={{textAlign: 'center'}}>Ainda não temos nenhum produtinho aqui :( </p> : null
 					}
 					{
 						menuType === 'caminhas' ? 
-						caminhas.length > 0 ? <div style={{width: '820px', margin: '0 auto'}}>
+						caminhas.length !== 0 ? <div style={{width: '620px', margin: '0 auto'}}>
 							<ImageGallery items={caminhas} showPlayButton={false} />
 						</div> : <p style={{textAlign: 'center'}}>Ainda não temos nenhum produtinho aqui :( </p> : null
 					}
 					{
 						menuType === 'arranhadores' ? 
-						arranhadores.length > 0 ? <div style={{width: '820px', margin: '0 auto'}}>
+						arranhadores.length !== 0 ? <div style={{width: '620px', margin: '0 auto'}}>
 							<ImageGallery items={arranhadores} showPlayButton={false} />
 						</div> : <p style={{textAlign: 'center'}}>Ainda não temos nenhum produtinho aqui :( </p> : null
 					}
@@ -66,7 +66,7 @@ function Body(props) {
 						<div className={css(style.section)} onClick={() => {menuType !== 'coleiras' ? setMenuType('coleiras') : setMenuType('')}}>Coleiras</div>
 						{
 							menuType === 'coleiras' ? 
-							coleiras.length > 0 ? <div style={{width: '320px', margin: '0 auto'}}>
+							coleiras.length !== 0 ? <div style={{width: '320px', margin: '0 auto'}}>
 								<ImageGallery items={coleiras} showPlayButton={false} />
 							</div> : <p style={{textAlign: 'center'}}>Ainda não temos nenhum produtinho aqui :( </p> : null
 						}
@@ -75,7 +75,7 @@ function Body(props) {
 						<div className={css(style.section)} onClick={() => {menuType !== 'caminhas' ? setMenuType('caminhas') : setMenuType('')}}>Caminhas</div>
 						{
 							menuType === 'caminhas' ? 
-							caminhas.length > 0 ? <div style={{width: '320px', margin: '0 auto'}}>
+							caminhas.length !== 0 ? <div style={{width: '320px', margin: '0 auto'}}>
 								<ImageGallery items={caminhas} showPlayButton={false} />
 							</div> : <p style={{textAlign: 'center'}}>Ainda não temos nenhum produtinho aqui :( </p> : null
 						}
@@ -84,7 +84,7 @@ function Body(props) {
 						<div className={css(style.section)} onClick={() => {menuType !== 'arranhadores' ? setMenuType('arranhadores') : setMenuType('')}}>Arranhadores</div>
 						{
 							menuType === 'arranhadores' ? 
-							arranhadores.length > 0 ? <div style={{width: '320px', margin: '0 auto'}}>
+							arranhadores.length !== 0 ? <div style={{width: '320px', margin: '0 auto'}}>
 								<ImageGallery items={arranhadores} showPlayButton={false} />
 							</div> : <p style={{textAlign: 'center'}}>Ainda não temos nenhum produtinho aqui :( </p> : null
 						}
