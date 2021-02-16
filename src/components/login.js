@@ -139,9 +139,29 @@ function Login(props) {
 						/>
 						<UploadProduct 
 							formClass={css(style.dashboardUpload)} 
+							formFocus={focus === 'placasUp' ? {backgroundColor: '#D9A7BE'} : null} 
+							h2Class={css(style.title)} 
+							h2Text='Nessa aqui você faz SÓ DE placas'
+							inputUpId='placasUp'
+							inputUpOnchange={(e) => handleChangeUpload(e)}
+							refKey='ref4'
+							valKey='val4'
+							refOnchange={(e) => handleChangeRef(e)}
+							valOnchange={(e) => handleChangeVal(e)}
+							uploadValue={uploadValue}
+							product={product}
+							file={file}
+							id='placas'
+							handleUpload={(e) => handleUpload(e)}
+							setFile={setFile}
+							setProduct={setProduct}
+							setFocus={setFocus}
+						/>
+						<UploadProduct 
+							formClass={css(style.dashboardUpload)} 
 							formFocus={focus === 'caminhasUp' ? {backgroundColor: '#D9A7BE'} : null} 
 							h2Class={css(style.title)} 
-							h2Text='Nessa aqui você faz SÓ DE caminhas'
+							h2Text='Nessa aqui você faz SÓ de caminhas'
 							inputUpId='caminhasUp'
 							inputUpOnchange={(e) => handleChangeUpload(e)}
 							refKey='ref2'
@@ -193,6 +213,18 @@ function Login(props) {
 							styleDeleteBtn={css(style.deleteBtn)}
 							delete={handleDelete}
 							products={props.coleiras}
+						/>
+						<DeleteEditProduct
+							styleSection={css(style.deleteSection)}
+							styleDeleteSection={css(style.productBtn)}
+							sectionId='placas'
+							setProductType={setProductType}
+							productType={productType}
+							styleCardImage={css(style.deleteImage)}
+							styleImg={css(style.image)}
+							styleDeleteBtn={css(style.deleteBtn)}
+							delete={handleDelete}
+							products={props.placas}
 						/>
 						<DeleteEditProduct
 							styleSection={css(style.deleteSection)}

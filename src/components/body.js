@@ -30,6 +30,14 @@ function Body(props) {
 		}
 	});
 
+	const placas = props.placas.map(i => {
+		return {
+			original: i.url,
+			thumbnail: i.url,
+			description: `Referência: ${i.reference} - Valor: R$ ${i.value},oo`
+		}
+	});
+
   return(
 		<div className={css(style.sections)}>
 			<p className={css(style.text)}>Olá, somos uma lojinha pensada para levar pra perto de você produtinhos para seu pet, aqui você pode encontrar tudo o que temos no momento<br></br>=^.^=</p>
@@ -38,6 +46,7 @@ function Body(props) {
 				<div style={{width: '100%'}}>
 					<div className={css(style.menuDesktop)}>
 						<div className={css(style.section)} onClick={() => {menuType !== 'coleiras' ? setMenuType('coleiras') : setMenuType('')}}>Coleiras</div>
+						<div className={css(style.section)} onClick={() => {menuType !== 'placas' ? setMenuType('placas') : setMenuType('')}}>Plaquinhas</div>
 						<div className={css(style.section)} onClick={() => {menuType !== 'caminhas' ? setMenuType('caminhas') : setMenuType('')}}>Caminhas</div>
 						<div className={css(style.section)} onClick={() => {menuType !== 'arranhadores' ? setMenuType('arranhadores') : setMenuType('')}}>Arranhadores</div>
 					</div>
@@ -45,6 +54,12 @@ function Body(props) {
 						menuType === 'coleiras' ? 
 						coleiras.length !== 0 ? <div style={{width: '620px', margin: '0 auto'}}>
 							<ImageGallery items={coleiras} showPlayButton={false} />
+						</div> : <p style={{textAlign: 'center'}}>Ainda não temos nenhum produtinho aqui :( </p> : null
+					}
+					{
+						menuType === 'placas' ? 
+						placas.length !== 0 ? <div style={{width: '620px', margin: '0 auto'}}>
+							<ImageGallery items={placas} showPlayButton={false} />
 						</div> : <p style={{textAlign: 'center'}}>Ainda não temos nenhum produtinho aqui :( </p> : null
 					}
 					{
@@ -71,6 +86,15 @@ function Body(props) {
 							</div> : <p style={{textAlign: 'center'}}>Ainda não temos nenhum produtinho aqui :( </p> : null
 						}
 					</div>
+					<div className={css(style.menu)}>
+						<div className={css(style.section)} onClick={() => {menuType !== 'placas' ? setMenuType('placas') : setMenuType('')}}>Plaquinhas</div>
+						{
+							menuType === 'placas' ? 
+							placas.length !== 0 ? <div style={{width: '320px', margin: '0 auto'}}>
+								<ImageGallery items={placas} showPlayButton={false} />
+							</div> : <p style={{textAlign: 'center'}}>Ainda não temos nenhum produtinho aqui :( </p> : null
+						}
+					</div>	
 					<div className={css(style.menu)}>
 						<div className={css(style.section)} onClick={() => {menuType !== 'caminhas' ? setMenuType('caminhas') : setMenuType('')}}>Caminhas</div>
 						{
