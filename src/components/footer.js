@@ -8,7 +8,7 @@ function Footer(props) {
 			<div className={css(style.about)}>
 				<img className={css(style.img)} src={MePicture} alt='' />
 				<div>
-					<p>Olá, meu nome é Lorena e esse é o catálogo da minha lojinha. O objetivo é trazer pra perto de você uns produtinhos pro seu gatinho.</p>
+					<p>Olá, meu nome é Lorena e esse é o catálogo da minha lojinha. O objetivo é levar pra perto de você uns produtinhos pro seu gatinho.</p>
 					<p>Para sugestões ou perguntas, pode me escrever aqui: lojacadeagata@gmail.com</p>
 				</div>
 			</div>

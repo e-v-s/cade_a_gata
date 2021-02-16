@@ -34,7 +34,7 @@ function Body(props) {
 		return {
 			original: i.url,
 			thumbnail: i.url,
-			description: `Referência: ${i.reference} - Valor: R$ ${i.value},oo`
+			description: `Referência: ${i.reference} - Valor: Com gravação R$ ${Number(i.value)+5},oo - Sem gravação R$ ${i.value},oo`
 		}
 	});
 
