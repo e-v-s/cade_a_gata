@@ -254,7 +254,7 @@ const style = StyleSheet.create({
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
-		marginTop: '60px',
+		margin: '60px 0',
 	},
 	input: {
 		margin: '10px 0',
